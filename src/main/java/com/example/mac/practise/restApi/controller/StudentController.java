@@ -55,6 +55,11 @@ public class StudentController {
         System.out.println("Student deleted with id:"+id);
     }
 
+    /***
+     *
+     * @param passportNumber
+     * @return
+     */
     @RequestMapping(value="/studentByPassportNumber/{passportNumber}",method=RequestMethod.GET)
     public Student getStudentByPassportNumber(@PathVariable("passportNumber") int passportNumber){
         Student student = studentService.getByPassportNo(passportNumber);
