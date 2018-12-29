@@ -1,15 +1,19 @@
 package com.example.mac.practise.restApi.service;
 
 
+import com.example.mac.practise.restApi.ExceptionHandling.StudentNotFoundException;
 import com.example.mac.practise.restApi.Repository.StudentRepository;
 import com.example.mac.practise.restApi.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -19,8 +23,12 @@ public class StudentServiceImpl  implements StudentService {
     StudentRepository studentRepository;
 
     @Override
-    public Student getOneStudent(Long id) {
-        return studentRepository.getOne(id);
+    public Student getOneStudent(Long id) throws StudentNotFoundException  {
+        Student student= studentRepository.getOne(id);
+        if(student!=null) {
+            return student;
+        } else throw new StudentNotFoundException("Student not found with Id:"+ id);
+
     }
 
     @Override
@@ -44,13 +52,21 @@ public class StudentServiceImpl  implements StudentService {
     }
 
     @Override
-    public void deleteStudent(Long id) {
-        studentRepository.deleteById(id);
+    public void deleteStudent(Long id) throws StudentNotFoundException{
+        try {
+            studentRepository.deleteById(id);
+        } catch (Exception exp){
+            throw new StudentNotFoundException("Student not found with id:"+ id);
+        }
 
     }
 
     @Override
     public Student getByPassportNo(int number) {
-        return studentRepository.findByPassportNumber(number);
+        Student student = studentRepository.findByPassportNumber(number);
+        if(student!=null) {
+            return student;
+        } else throw new StudentNotFoundException("Student not found with Pnumber:"+ number);
+
     }
 }

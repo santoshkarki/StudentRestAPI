@@ -2,10 +2,12 @@ package com.example.mac.practise.restApi.controller;
 
 
 
+import com.example.mac.practise.restApi.ExceptionHandling.StudentNotFoundException;
 import com.example.mac.practise.restApi.model.Student;
 import com.example.mac.practise.restApi.service.StudentService;
 import com.example.mac.practise.restApi.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,7 +29,6 @@ public class StudentController {
     @RequestMapping(value="/students/{id}",method=RequestMethod.GET)
     public Student getStudent(@PathVariable("id") Long id){
         Student student = studentService.getOneStudent(id);
-        System.out.println("Getting student of Id:"+id);
         return student;
 
     }
@@ -50,7 +51,7 @@ public class StudentController {
     }
 
     /***
-     * 
+     *
      * @param id
      */
     @RequestMapping(value="students/{id}", method=RequestMethod.DELETE)
