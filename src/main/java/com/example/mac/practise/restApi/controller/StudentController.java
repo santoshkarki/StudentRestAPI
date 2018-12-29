@@ -49,6 +49,10 @@ public class StudentController {
         return updatedStudent;
     }
 
+    /***
+     * 
+     * @param id
+     */
     @RequestMapping(value="students/{id}", method=RequestMethod.DELETE)
     public void deleteStudent(@PathVariable("id") Long id){
         studentService.deleteStudent(id);
