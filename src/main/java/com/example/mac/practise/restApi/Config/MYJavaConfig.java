@@ -25,7 +25,7 @@ public class MYJavaConfig {
         activeProfile=System.getProperty("spring.profiles.active");
 
         //choose different properties file for different active profiles
-        if("development".equals(activeProfile)){
+        if("dev".equals(activeProfile)){
             resource= new ClassPathResource("application-dev.properties");
             propertySourcePlaceHolderConfigure.setLocation(resource);
         }
@@ -41,4 +41,5 @@ public class MYJavaConfig {
 
     }
 }
+
 
