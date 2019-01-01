@@ -6,8 +6,9 @@ import com.example.mac.practise.restApi.ExceptionHandling.StudentNotFoundExcepti
 import com.example.mac.practise.restApi.model.Student;
 import com.example.mac.practise.restApi.service.StudentService;
 import com.example.mac.practise.restApi.service.StudentServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,6 +22,8 @@ public class StudentController {
     @Autowired
     private StudentServiceImpl studentService;
 
+   private static Logger logger = LoggerFactory.getLogger(StudentController.class);
+
     @RequestMapping(value="/students", method= RequestMethod.GET )
     public List<Student> getAllStudents(){
        return  studentService.getAllStudents();
@@ -29,6 +32,10 @@ public class StudentController {
     @RequestMapping(value="/students/{id}",method=RequestMethod.GET)
     public Student getStudent(@PathVariable("id") Long id){
         Student student = studentService.getOneStudent(id);
+        logger.debug("This is a debug message");
+        logger.info("This is an info message");
+        logger.warn("This is a warn message");
+        logger.error("This is an error message");
         return student;
 
     }
